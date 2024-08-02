@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+public class DistributedApples {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double ramShare=0.5;
+        double shamShare=0.3;
+        double rahimShare=0.2;
+        ArrayList <Integer> appleWeight = new ArrayList<>();
+        ArrayList <Integer> ram = new ArrayList<>();
+        ArrayList <Integer> sham = new ArrayList<>();
+        ArrayList <Integer> rahim = new ArrayList<>();
+        while(true)
+        {
+        	System.out.print("Enter apple weight in gram (-1 to stop ) :");
+        	int weight=sc.nextInt();
+			if(weight==-1)
+        		break;
+        	appleWeight.add(weight);
+        }
+        Collections.sort(appleWeight, Collections.reverseOrder());
+        int totalSum= appleWeight.stream().mapToInt(Integer::intValue).sum();
+        double ramTotal = ramShare*totalSum;
+        double shamTotal = shamShare*totalSum;
+        double rahimTotal = rahimShare*totalSum;
+        
+        double ramWeight=0;
+        double shamWeight=0;
+        double rahimWeight=0;
+        
+        for(int weight:appleWeight)
+        {
+        	if(ramWeight+weight<=ramTotal)
+        		{
+        		ram.add(weight);
+        		ramWeight+=weight;
+        		}
+        	else if(shamWeight+weight<=shamTotal)
+        		{
+        		sham.add(weight);
+        		shamWeight+=weight;
+        		}
+        	else if(rahimWeight+weight<=rahimTotal)
+        	{
+        		rahim.add(weight);
+        		rahimWeight+=weight;
+        	}
+        }
+        System.out.println("Distribution Result : ");
+        System.out.print("Ram :");
+        printRes(ram);
+        System.out.println();
+        System.out.print("Sham :");
+        printRes(sham);
+        System.out.println();
+        System.out.print("Rahim :");
+        printRes(rahim);
+        
+        
+        
+        
+    }
+    static void printRes(ArrayList<Integer> res )
+    {
+    	for(int weight:res)
+    	{
+    		System.out.print(weight+" ");
+    	}
+    	
+    }
+}
